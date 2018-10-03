@@ -3,11 +3,14 @@ pragma solidity ^0.4.24;
 contract ERC20 {
 
 	//4 necessary class variables here
+	string name;
     address owner;
     uint amount;
+    mapping(address => uint) accounts;
 
 	//Constructor goes here
-    constructor(uint coins) public {
+    constructor(uint coins, string name) public {
+    	name = name;
         owner = msg.sender;
         amount = coins;
     }
@@ -21,7 +24,7 @@ contract ERC20 {
 
 	//withdrawalEth function goes here
 	function withdrawalEth() onlyOwner public payable {
-	    
+	    address.transfer(amount);
 	}
 
 
@@ -39,8 +42,8 @@ contract ERC20 {
 
 
 	//function that returns you the amount of coins a certain address has
-    function getAmount() public view returns(uint) {
-        return amount;
+    function getAmount(address addr) public view returns(uint) {
+        return accounts[addr];
     }
 }
 
