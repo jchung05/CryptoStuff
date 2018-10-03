@@ -9,8 +9,8 @@ contract ERC20 {
     mapping(address => uint) accounts;
 
 	//Constructor goes here
-    constructor(uint coins, string name) public {
-    	name = name;
+    constructor(uint coins, string coinName) public {
+    	name = coinName;
         owner = msg.sender;
         amount = coins;
     }
@@ -24,13 +24,15 @@ contract ERC20 {
 
 	//withdrawalEth function goes here
 	function withdrawalEth() onlyOwner public payable {
-	    address.transfer(amount);
+	    owner.transfer(amount);
 	}
 
 
 	//Transfer token function
-	function transfer() public pure {
-	    
+	function transfer(address recipient, uint tokens) public returns(bool success) {
+	    accounts[msg.sender] -= tokens;
+	    accounts[recipient] += tokens;
+	    return (true);
 	}
 
 
