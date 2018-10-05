@@ -30,9 +30,11 @@ contract ERC20 {
 
 	//Transfer token function
 	function transfer(address recipient, uint tokens) public returns(bool success) {
+	    //Check that sender has enough tokens to send
+	    require(accounts[msg.sender] >= tokens);
 	    accounts[msg.sender] -= tokens;
 	    accounts[recipient] += tokens;
-	    return (true);
+	    return true;
 	}
 
 
