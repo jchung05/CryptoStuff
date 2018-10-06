@@ -5,14 +5,15 @@ contract ERC20 {
 	//4 necessary class variables here
 	string name;
     address owner;
-    uint amount;
+    uint totalmint;
     mapping(address => uint) accounts;
 
 	//Constructor goes here
     constructor(uint coins, string coinName) public {
     	name = coinName;
         owner = msg.sender;
-        amount = coins;
+        totalmint = coins;
+	accounts[owner] = totalmint;
     }
 	
 
@@ -24,17 +25,16 @@ contract ERC20 {
 
 	//withdrawalEth function goes here
 	function withdrawalEth() onlyOwner public payable {
-	    owner.transfer(amount);
+	    owner.transfer(address(this).balance);
 	}
 
 
 	//Transfer token function
-	function transfer(address recipient, uint tokens) public returns(bool success) {
+	function transfer(address recipient, uint tokens) public {
 	    //Check that sender has enough tokens to send
 	    require(accounts[msg.sender] >= tokens);
 	    accounts[msg.sender] -= tokens;
 	    accounts[recipient] += tokens;
-	    return true;
 	}
 
 
