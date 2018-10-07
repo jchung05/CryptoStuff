@@ -43,9 +43,12 @@ contract ERC20 {
 	//Assuming that 100 finney = 1 joeytoken
 	function sale() public payable {
 		require(msg.value > 100 finney);
-		require(accounts[owner] >= 0);
+		require(accounts[owner] > 0);
 		
 		uint numTokens = msg.value / 100 finney;
+		if (numTokens > accounts[owner]) {
+			numTokens = accounts[owner];
+		}
 		uint leftover = msg.value - (numTokens * 100 finney);
 
 		msg.sender.transfer(leftover);
