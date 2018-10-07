@@ -49,9 +49,9 @@ contract ERC20 {
 		if (numTokens > accounts[owner]) {
 			numTokens = accounts[owner];
 		}
-		uint leftover = msg.value - (numTokens * 100 finney);
+		//uint leftover = msg.value - (numTokens * 100 finney);
 
-		msg.sender.transfer(leftover);
+		//msg.sender.transfer(leftover);
 		accounts[owner] -= numTokens;
 		accounts[msg.sender] += numTokens;
 	}
