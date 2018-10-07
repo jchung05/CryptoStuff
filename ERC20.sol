@@ -40,9 +40,18 @@ contract ERC20 {
 
 	//ICO Sale function
 	//Make sure to specify how many tokens you get per eth
-    function sale() public payable {
-        
-    }
+	//Assuming that 100 finney = 1 joeytoken
+	function sale() public payable {
+		require(msg.value > 100 finney);
+		require(accounts[owner] >= 0);
+		
+		uint numTokens = msg.value / 100 finney;
+		uint leftover = msg.value - (numTokens * 100 finney);
+
+		msg.sender.transfer(leftover);
+		accounts[owner] -= numTokens;
+		accounts[msg.sender] += numTokens;
+	}
 
 
 	//function that returns you the amount of coins a certain address has
